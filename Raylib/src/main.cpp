@@ -1,6 +1,6 @@
 #include <raylib.h>
 #include <raymath.h>
-
+using namespace std;
 
 int main(){
     const int screenWidth = 1100;
@@ -19,6 +19,7 @@ int main(){
     // Load Earth texture
     Image img = LoadImage("resources/earth_diffuse.png");
     ImageFlipVertical(&img);
+    Texture2D bg= LoadTexture("resources/images.png");
 
     Texture2D earthTexture = LoadTextureFromImage(img);
     UnloadImage(img);
@@ -32,8 +33,12 @@ int main(){
     Quaternion textureFix =
         QuaternionFromAxisAngle((Vector3){1,0,0}, -PI/2);
     Quaternion orientation = QuaternionIdentity();
+    float rad=1.0f;
     
     while (!WindowShouldClose()){ 
+        float wheel=GetMouseWheelMove();
+        wheel=wheel*0.05f;
+        rad=rad+wheel;
         if(IsMouseButtonDown(MOUSE_LEFT_BUTTON)){
             Vector2 delta = GetMouseDelta();
             Quaternion qYaw =
@@ -72,9 +77,17 @@ int main(){
         earthModel.transform = QuaternionToMatrix(finalOrientation);
 
         BeginDrawing();
-            ClearBackground(BLACK);
+            ClearBackground(RAYWHITE);
+            DrawTexturePro(
+                bg,
+                (Rectangle){0, 0, (float)bg.width, (float)bg.height},
+                (Rectangle){0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                (Vector2){0, 0},
+                0.0f,
+                WHITE
+            );
             BeginMode3D(camera);
-                DrawModel(earthModel, earthPos, 1.0f, WHITE);
+                DrawModel(earthModel, earthPos, rad, WHITE);
                 DrawGrid(10, 10.0f);
                 
             EndMode3D();
@@ -85,6 +98,7 @@ int main(){
     // Unload textures and models
     UnloadTexture(earthTexture);
     UnloadModel(earthModel);
+    UnloadTexture(bg);
     CloseWindow();
     return 0;
 }

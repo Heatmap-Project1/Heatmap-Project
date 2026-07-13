@@ -16,7 +16,7 @@ int main(){
     camera.projection = CAMERA_PERSPECTIVE;
 
     // Load Earth texture
-    Image img=LoadImage(resources/earth_diffuse.png);
+    Image img=LoadImage("resources/earth_diffuse.png");
     ImageFlipVertical(&img);
     
     Texture2D earthTexture = LoadTexture(img);

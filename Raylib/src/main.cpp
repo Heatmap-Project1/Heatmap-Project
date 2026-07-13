@@ -19,7 +19,7 @@ int main(){
     Image img=LoadImage("resources/earth_diffuse.png");
     ImageFlipVertical(&img);
     
-    Texture2D earthTexture = LoadTexture(img);
+    Texture2D earthTexture = LoadTextureFromImage(img);
     UploadImage(img);
     
     // Create the sphere model (uncomment if applying to Mesh directly)

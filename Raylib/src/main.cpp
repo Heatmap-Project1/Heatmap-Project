@@ -20,7 +20,7 @@ int main(){
     ImageFlipVertical(&img);
     
     Texture2D earthTexture = LoadTextureFromImage(img);
-    UploadImage(img);
+    UnloadImage(img);
     
     // Create the sphere model (uncomment if applying to Mesh directly)
     Model earthModel = LoadModelFromMesh(GenMeshSphere(2.0f, 32, 32));
@@ -35,7 +35,7 @@ int main(){
     while (!WindowShouldClose())    
     {
         rotation += 0.01f;
-        earthModel.transform = MatrixMultiply(MatrixRotateX(PI/2), MatrixRotateY(rotation));
+        earthModel.transform = MatrixMultiply(MatrixRotateX(-PI/2), MatrixRotateY(rotation));
         
 
 

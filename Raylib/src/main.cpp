@@ -16,7 +16,11 @@ int main(){
     camera.projection = CAMERA_PERSPECTIVE;
 
     // Load Earth texture
-    Texture2D earthTexture = LoadTexture("resources/earth_diffuse.png");
+    Image img=LoadImage(resources/earth_diffuse.png);
+    ImageFlipVertical(&img);
+    
+    Texture2D earthTexture = LoadTexture(img);
+    UploadImage(img);
     
     // Create the sphere model (uncomment if applying to Mesh directly)
     Model earthModel = LoadModelFromMesh(GenMeshSphere(2.0f, 32, 32));

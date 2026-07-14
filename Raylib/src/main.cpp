@@ -61,7 +61,7 @@ int main(){
         }
         Vector3 localUp = {0, 1, 0};
         Vector3 spinAxis = Vector3RotateByQuaternion(localUp, orientation);
-        float spinSpeed = 0.5f; // radians/sec
+        float spinSpeed = 0.05f; // radians/sec
 
         Quaternion spin =
             QuaternionFromAxisAngle(

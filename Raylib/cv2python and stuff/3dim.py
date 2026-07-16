@@ -13,24 +13,28 @@ def cRGBA(x):
 
 turbo = plt.get_cmap('turbo')
 tmp = dpi['temp_c']
-M,m = max(tmp), min(tmp)
+Mt,mt = max(tmp), min(tmp)
 
-dpi['normal'] = tmp.apply(lambda x: ((x-m)/(M-m)))
-dpi['turbo'] = dpi['normal'].apply(lambda x: turbo(x))
-dpi['turbo'] = dpi['turbo'].apply(cRGBA)
+hi = dpi['heat_index_c']
+Mh,mh = max(hi), min(hi)
+
+dpi['normal_T'] = (tmp - mt)/(Mt - mt)
+dpi['normal_HI'] = (hi - mh)/(Mh - mh)
 
 x_ax = np.arange(0,1280)
 y_ax = np.arange(0,641)
 x1,y1 = np.meshgrid(x_ax,y_ax)
 
 z = np.zeros((1280,641))
-z[dpi['px'], dpi['py']] = dpi['normal']
+z[dpi['px'], dpi['py']] = dpi['normal_HI']
 z = z.T
 Z_smooth = gaussian_filter(z, sigma=1)
 
-dpi = 100
+print(dpi, dnow.columns)
 
-fig = plt.figure(figsize=(1280/dpi, 641/dpi), dpi=dpi)
+d = 100
+
+fig = plt.figure(figsize=(1280/d, 641/d), dpi=d)
 ax = fig.add_axes([0, 0, 1, 1])   # axes fill the whole figure
 ax.contourf(x1,y1,Z_smooth,cmap = 'turbo')
 ax.set_axis_off()

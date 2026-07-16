@@ -19,13 +19,14 @@ lat, long = dpi['lat'], dpi['lon']
 w,h = 1280, 641
 img = np.zeros((h,w,3), np.uint8)
 hm = dpi['temp_c'] = dnow['temp_c']
-M,m=dpi['temp_c'].max(),dpi['temp_c'].min()
+dpi['heat_index_c'] = dnow['heatindex_c']
+
 
 
 #dpi['px'], dpi['py'] = np.round(((long-west)/(east-west))*w).astype(int), np.round(((north-lat)/(north-south))*h).astype(int)
 dpi["px"] = np.round(((long - west) / (east - west)) * (w - 1)).astype(int)
 dpi["py"] = np.round(((north - lat) / (north - south)) * (h - 1)).astype(int)
-dpi['tnorm'] = dpi['temp_c'].apply(lambda x: int(np.round(((x-m)/(M-m))*255)))
+#dpi['tnorm'] = dpi['temp_c'].apply(lambda x: int(np.round(((x-m)/(M-m))*255)))
 
 dpi["px"] = np.round(((long - west) / (east - west)) * (w - 1)).astype(int)
 dpi["py"] = np.round(((north - lat) / (north - south)) * (h - 1)).astype(int)
